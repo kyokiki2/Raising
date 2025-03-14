@@ -4,13 +4,16 @@ using UnityEngine.AI;
 public class Player : MonoBehaviour
 {   
     [SerializeField]
-    private Animator animator;
+    private PlayerAnimation playerAnimation;
 
     [SerializeField]
     private CharacterController controller;
 
     [SerializeField]
     private float maxSpeed = 6f;
+
+    [SerializeField]
+    private Transform foodParent;
 
     private DynamicJoystick joyStick;
 
@@ -37,12 +40,20 @@ public class Player : MonoBehaviour
             controller.Move(moveDirection * moveSpeed * Time.deltaTime);
             transform.rotation = Quaternion.LookRotation(moveDirection);
 
-            animator.SetFloat("Speed", joystickSize);
+            playerAnimation.Move(joystickSize);
         }
         else
         {
-            animator.SetFloat("Speed", 0);
+            playerAnimation.Move(0);
         }
+    }
+
+    public void SetCarry(Chicken chicken)
+    {
+        if (playerAnimation.IsCarry == false)
+            playerAnimation.Carry(true);
+
+        chicken.transform.SetParent(foodParent);
     }
 
 }

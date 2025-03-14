@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public PlayerController PlayerController;
+    public PlayerManager PlayerManager;
+    public ResourcePoolManager ResourcePoolManager;
+    public ChickenSpawnManager ChickenSpawnManager;
 
     public static GameManager Instance = null;
 
@@ -19,13 +21,16 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
-        PlayerController.Init();
+        PlayerManager.Init();
+        ResourcePoolManager.Init();
+        ChickenSpawnManager.Init();
     }
 
 
     private void LateUpdate()
     {
-        PlayerController.OnUpdate();
+        PlayerManager.OnUpdate();
+        ChickenSpawnManager.OnUpdate();
     }
 
 
