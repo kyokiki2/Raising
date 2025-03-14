@@ -44,10 +44,7 @@ Shader "Custom/ProgressBar"
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                if (i.uv.x > _FillAmount)  // Fill effect based on X position
-                {
-                    col.a = 0;  // Hide the part above the fill amount
-                }
+                col.a *= step(1.0 - _FillAmount, i.uv.y);
                 return col * _Color;
             }
             ENDCG
