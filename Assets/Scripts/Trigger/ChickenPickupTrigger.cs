@@ -2,9 +2,20 @@ using UnityEngine;
 
 public class ChickenPickupTrigger : BaseTrigger
 {
+    private ChickenSpawner spawner = null;
+
     private const int MAX_COUNT = 7;
     private float elapsedTime = 0f;
-    private const float DURATION = 1f;
+    private const float DURATION = 0.2f;
+
+    protected override void OnEnter()
+    {
+        base.OnEnter();
+
+        if(spawner == null)
+            spawner = GetComponent<ChickenSpawner>();
+    }
+
 
     protected override void OnUpdate()
     {
@@ -18,7 +29,7 @@ public class ChickenPickupTrigger : BaseTrigger
 
         if(elapsedTime >= DURATION)
         {
-            var chicken = GameManager.Instance.ChickenSpawnManager.GetChicken();
+            var chicken = spawner.GetChicken();
             if (chicken != null)
                 playerMgr.SetChick(chicken);
 

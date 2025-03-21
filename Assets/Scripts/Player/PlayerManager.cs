@@ -32,6 +32,17 @@ public class PlayerManager : MonoBehaviour
         SortChicken();
     }
 
+    public Chicken DropChicken()
+    {
+        if (myChickenList.Count <= 0)
+            return null;
+
+        int lastIndex = myChickenList.Count - 1;
+        var chicken = myChickenList[lastIndex];
+        myChickenList.RemoveAt(lastIndex);
+        return chicken;
+    }
+
     private void SortChicken()
     {
         for(int i = 0; i < myChickenList.Count; ++i) 

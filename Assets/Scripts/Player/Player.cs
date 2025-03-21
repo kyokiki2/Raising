@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private Transform foodParent;
 
     private DynamicJoystick joyStick;
+    public PlayerAnimation Animation { get { return playerAnimation; } }
 
 
     public void Init(DynamicJoystick joyStick)

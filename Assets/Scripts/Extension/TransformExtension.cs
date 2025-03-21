@@ -25,4 +25,12 @@ public static class TransformExtension
     {
         tfm.localScale = Vector3.one;
     }
+
+    public static void SetTransform(this Transform tfm, Transform tfmInfo)
+    {
+        tfm.localPosition = tfmInfo.localPosition;
+        tfm.localRotation = tfmInfo.localRotation;
+        tfm.localScale = tfmInfo.localScale;
+    }
+
 }

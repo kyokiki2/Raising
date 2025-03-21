@@ -1,92 +1,39 @@
 using DG.Tweening;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ChickenSpawnManager : MonoBehaviour
 {
     [SerializeField]
-    private Transform[] parents;
+    private Transform parent;
 
-    private Chicken[] chickenSpawns = null;
-    private float elapsedTime = 0f;
-    private const float DURATION = 2f;
-
-    private ResourcePoolManager resourcePoolManager
-    {
-        get { return GameManager.Instance.ResourcePoolManager; }
-    }
+    private List<ChickenSpawner> spawnerList = new ();
 
     public void Init()
     {
-        if (chickenSpawns == null)
-            chickenSpawns = new Chicken[parents.Length];
+        int spawnId = GameManager.Instance.Config.SettingData.StartSpawnId;
+        var spawnData = GameManager.Instance.DataAsset.GetSpawnData(spawnId);
+        CreateSpawner(spawnData);
     }
 
     public void OnUpdate()
     {
-        elapsedTime += Time.deltaTime;
-
-        if(elapsedTime > DURATION) 
+        for(int i = 0; i < spawnerList.Count; ++i)
         {
-            var emptyIndex = GetEmptyIndex();
-
-            if (0 <= emptyIndex)
-                CreateNewChicken(emptyIndex);
-
-            elapsedTime = 0f;
+            var spawner = spawnerList[i];
+            spawner.OnUpdate();
         }
     }
 
-    private int GetEmptyIndex()
+    public void CreateSpawner(SpawnData spawnData)
     {
-        for(int i = 0; i < chickenSpawns.Length; ++i)
-        {
-            if (chickenSpawns[i] == null)
-                return i;
-        }
+        var path = GameManager.Instance.Config.Resource.ChickenSpawner;
+        var spawner = Utility.ResourcesLoad<ChickenSpawner>(path, parent);
+        spawner.Init(spawnData);
+        spawner.transform.SetLocalPositionAndRotation(spawnData.Position, Quaternion.Euler(spawnData.Rotation));
+        spawner.transform.localScale = spawnData.Scale;
 
-        return -1;
+        spawnerList.Add(spawner);     
     }
-
-    private void CreateNewChicken(int index)
-    {
-        var newChicken = resourcePoolManager.GetChicken();
-        chickenSpawns[index] = newChicken;
-        chickenSpawns[index].transform.InitTransform(parents[index]);
-        chickenSpawns[index].IsActive = true;
-        CreateEffect(chickenSpawns[index]);
-    }
-
-    private void CreateEffect(Chicken chicken)
-    {
-        chicken.transform.localScale = Vector3.zero;
-        chicken.transform.DOScale(1, 2f).SetEase(Ease.OutBack);
-    }
-
-    private void RemoveChicken(int index)
-    {
-        if (index < 0 || index >= chickenSpawns.Length)
-            return;
-
-        chickenSpawns[index] = null;
-    }
-
-    public Chicken GetChicken()
-    {
-        for(int i = 0; i < chickenSpawns.Length; ++i)
-        {
-            var chicken = chickenSpawns[i];
-
-            if (chicken == null)
-                continue;
-
-            RemoveChicken(i);
-
-            return chicken;
-        }
-
-        return null;
-    }
-
-
 }
