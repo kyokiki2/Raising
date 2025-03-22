@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
@@ -33,7 +34,8 @@ public class DeliveryMan : MonoBehaviour
     public void SetChicken(Chicken chicken)
     {
         this.chicken = chicken;
-        chicken.transform.InitTransform(foodParent);
+        chicken.transform.SetParent(foodParent);
+        chicken.transform.DOLocalJump(Vector3.zero, 0.5f, 1, 0.2f).SetEase(Ease.OutQuad);
     }
 
     public void DeliveryComplete()
@@ -75,6 +77,10 @@ public class DeliveryMan : MonoBehaviour
     public void Clear()
     {
         chicken = null;
+    }
+
+    private void OnDestroy()
+    {
         onComplete = null;
     }
 }

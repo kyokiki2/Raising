@@ -40,8 +40,7 @@ public class ChickenDeliveryTrigger : BaseTrigger
             var chicken = playerMgr.DropChicken();
             if (chicken != null)
             {
-                chickenList.Add(chicken);
-                SortChicken();
+                SetChicken(chicken);
             }
 
             if (playerMgr.ChickenCount <= 0)
@@ -51,8 +50,17 @@ public class ChickenDeliveryTrigger : BaseTrigger
         }
     }
 
-    private void SortChicken()
+    private void SetChicken(Chicken chicken)
     {
+        chickenList.Add(chicken);
+        chicken.transform.SetParent(foodParent);
+        Vector3 targetPos = GetNewChickenPos();
+        chicken.transform.DOLocalJump(targetPos, 0.5f, 1, 0.2f).SetEase(Ease.OutQuad);
+    }
+
+    private Vector3 GetNewChickenPos()
+    {
+        Vector3 pos = Vector3.zero;
         int columnMax = grid.Column;
 
         for (int i = 0; i < chickenList.Count; ++i)
@@ -61,14 +69,13 @@ public class ChickenDeliveryTrigger : BaseTrigger
             if (chicken == null)
                 continue;
 
-            chicken.transform.SetParent(foodParent);
-
             float posX = (i % columnMax) * grid.PosX;
             int colCount = i / columnMax;
             float posY = colCount * grid.PosY;
-            Vector3 targetPos = new Vector3(posX, posY, 0f);
-            chicken.transform.localPosition = targetPos;
+            pos = new Vector3(posX, posY, 0f);
         }
+
+        return pos;
     }
 
     public Chicken GetChicken()

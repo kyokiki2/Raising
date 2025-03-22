@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -29,7 +30,8 @@ public class PlayerManager : MonoBehaviour
     {
         myChickenList.Add(chicken);
         Player.SetCarry(chicken);
-        SortChicken();
+        Vector3 targetPos = GetNewChickenPos();
+        chicken.transform.DOLocalJump(targetPos, 0.8f, 1, 0.2f).SetEase(Ease.OutQuad);
     }
 
     public Chicken DropChicken()
@@ -43,17 +45,20 @@ public class PlayerManager : MonoBehaviour
         return chicken;
     }
 
-    private void SortChicken()
+    private Vector3 GetNewChickenPos()
     {
-        for(int i = 0; i < myChickenList.Count; ++i) 
+        Vector3 pos = Vector3.one;
+        for (int i = 0; i < myChickenList.Count; ++i)
         {
             var chicken = myChickenList[i];
             if (chicken == null)
                 continue;
 
             var posY = i * INTERVAL;
-            chicken.transform.localPosition = new Vector3(0f, posY, 0f);
+            pos = new Vector3(0f, posY, 0f);
         }
+
+        return pos;
     }
 
 }

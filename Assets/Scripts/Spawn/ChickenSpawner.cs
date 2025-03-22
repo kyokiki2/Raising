@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class ChickenSpawner : MonoBehaviour
 {
@@ -76,18 +77,12 @@ public class ChickenSpawner : MonoBehaviour
 
     public Chicken GetChicken()
     {
-        for (int i = 0; i < chickenSpawns.Length; ++i)
-        {
-            var chicken = chickenSpawns[i];
+        int lastIndex = Array.FindLastIndex(chickenSpawns, x => x != null);
+        if (lastIndex < 0 || lastIndex >= chickenSpawns.Length)
+            return null;
 
-            if (chicken == null)
-                continue;
-
-            RemoveChicken(i);
-
-            return chicken;
-        }
-
-        return null;
+        var chicken = chickenSpawns[lastIndex];
+        RemoveChicken(lastIndex);
+        return chicken;
     }
 }
