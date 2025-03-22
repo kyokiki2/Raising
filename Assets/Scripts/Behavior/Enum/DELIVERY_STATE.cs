@@ -6,5 +6,6 @@ public enum DELIVERY_STATE
 {
     WAIT,
 	PICK_UP,
-	DELIVERY
+	DELIVERY,
+	NONE
 }

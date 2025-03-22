@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerManager.OnUpdate();
         ChickenSpawnManager.OnUpdate();
+        DeliveryManManager.OnUpdate();
     }
 
 

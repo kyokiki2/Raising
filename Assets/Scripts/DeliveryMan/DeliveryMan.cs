@@ -1,6 +1,8 @@
+using System;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class DeliveryMan : MonoBehaviour
 {
@@ -15,10 +17,15 @@ public class DeliveryMan : MonoBehaviour
 
     private DeliveryManManager manager { get { return GameManager.Instance.DeliveryManManager; } }
 
+    public Chicken Chicken { get { return chicken; } }
     private Chicken chicken = null;
+    private System.Action<DeliveryMan> onComplete = null;
 
     public void Init()
     {
+        if(onComplete == null)
+            onComplete += manager.OnDeliveryComplete;
+
         behavior.SetVariableValue("PickUp", manager.GetWayPoint(DELIVERY_STATE.PICK_UP));
         behavior.SetVariableValue("Delivery", manager.GetWayPoint(DELIVERY_STATE.DELIVERY));
     }
@@ -31,9 +38,43 @@ public class DeliveryMan : MonoBehaviour
 
     public void DeliveryComplete()
     {
-        var objectPoolManager = GameManager.Instance.ObjectPoolManager;
+        gameObject.SetActive(false);
 
-        objectPoolManager.ChickenPool.ReleaseObject(chicken);
-        objectPoolManager.DeliveryManPool.ReleaseObject(this);
+        if (onComplete != null)
+            onComplete.Invoke(this);
+    }
+
+    public void SetDestination(Vector3 target)
+    {
+        agent.SetDestination(target);
+    }
+
+    public bool IsIdleState()
+    {
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+                return true;            
+        }
+
+        return false;
+    }
+
+    public void SetState(DELIVERY_STATE state)
+    {
+        behavior.SetVariableValue("CurrentState", state);
+    }
+
+    public DELIVERY_STATE GetState()
+    {
+        BlackboardVariable<DELIVERY_STATE> state;
+        behavior.GetVariable("CurrentState", out state);
+        return state.Value;
+    }
+
+    public void Clear()
+    {
+        chicken = null;
+        onComplete = null;
     }
 }

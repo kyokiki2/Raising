@@ -25,17 +25,21 @@ public partial class ChickenDeliveryAction : Action
     protected override Status OnUpdate()
     {
         Vector3 myPos = DeliveryMan.Value.transform.position;
-        if (Vector3.Distance(myPos, target) <= 0.3f)
+        if (Vector3.Distance(myPos, target) <= 1f)
         {
             deliveryMan.DeliveryComplete();
             return Status.Success;
         }
+
+        if (deliveryMan.IsIdleState())
+            deliveryMan.SetDestination(target);
 
         return Status.Running;
     }
 
     protected override void OnEnd()
     {
+        deliveryMan = null;
     }
 }
 

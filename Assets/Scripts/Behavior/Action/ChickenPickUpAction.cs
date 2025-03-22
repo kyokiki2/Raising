@@ -12,6 +12,7 @@ public partial class ChickenPickUpAction : Action
     private Vector3 target;
 
     private DeliveryMan deliveryMan = null;
+    private Chicken deliveryChicken = null;
 
     protected override Status OnStart()
     {
@@ -24,20 +25,30 @@ public partial class ChickenPickUpAction : Action
     protected override Status OnUpdate()
     {
         Vector3 myPos = DeliveryMan.Value.transform.position;
+
         if (Vector3.Distance(myPos, target) <= 0.3f)
         {
-            var chicken = GameManager.Instance.DeliveryStationManager.GetChicken();
-            deliveryMan.SetChicken(chicken);
+            if(deliveryChicken == null)
+                deliveryChicken = GameManager.Instance.DeliveryStationManager.GetChicken();
 
-            return Status.Success;
+            if (deliveryChicken != null)
+                return Status.Success;
+            else
+                return Status.Running;
         }
 
+        if (deliveryMan.IsIdleState())
+            deliveryMan.SetDestination(target);
 
         return Status.Running;
     }
 
     protected override void OnEnd()
     {
+        if (deliveryChicken != null)
+            deliveryMan.SetChicken(deliveryChicken);
+
+        deliveryChicken = null;
     }
 }
 
