@@ -15,7 +15,7 @@ public class CharacterManager : MonoBehaviour
         if(charList.Contains(player) == false)
             AddCharacter(player);
 
-        for(int i = 0; i < charList.Count; ++i)
+        for (int i = 0; i < charList.Count; ++i)
             charList[i].Init();
     }
 
@@ -27,10 +27,7 @@ public class CharacterManager : MonoBehaviour
     public void OnUpdate()
     {
         for(int i = 0; i < charList.Count; ++i)
-        {
-            var character = charList[i];
-            character.OnUpdate();
-        }
+            charList[i].OnUpdate();
     }
 
 }

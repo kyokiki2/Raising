@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class BaseTrigger : MonoBehaviour
 {
-    protected bool IsPlayer(Collider other) { return other.CompareTag(Tag.PLAYER); }
+    protected CharacterBase character = null;
     private Coroutine updateCoroutine = null;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (IsPlayer(other) == false)
+        character = other.GetComponent<CharacterBase>();
+        if (character == null)
             return;
 
         OnEnter();
@@ -21,7 +22,7 @@ public class BaseTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (IsPlayer(other) == false)
+        if (character == null)
             return;
 
         ClearUpdate();
