@@ -1,30 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class Player : MonoBehaviour
+public class Player : CharacterBase
 {   
     [SerializeField]
-    private PlayerAnimation playerAnimation;
-
-    [SerializeField]
-    private CharacterController controller;
+    private DynamicJoystick joyStick;
 
     [SerializeField]
     private float maxSpeed = 6f;
 
-    [SerializeField]
-    private Transform foodParent;
-
-    private DynamicJoystick joyStick;
-    public PlayerAnimation Animation { get { return playerAnimation; } }
-
-
-    public void Init(DynamicJoystick joyStick)
+    public override void Init()
     {
-        this.joyStick = joyStick;
-    }
+        base.Init();
+    }   
 
-    public void OnUpdate()
+    public override void OnUpdate()
     {
         MoveUpdate();
     }
@@ -41,20 +31,11 @@ public class Player : MonoBehaviour
             controller.Move(moveDirection * moveSpeed * Time.deltaTime);
             transform.rotation = Quaternion.LookRotation(moveDirection);
 
-            playerAnimation.Move(joystickSize);
+            charAnimation.Move(joystickSize);
         }
         else
         {
-            playerAnimation.Move(0);
+            charAnimation.Move(0);
         }
     }
-
-    public void SetCarry(Chicken chicken)
-    {
-        if (playerAnimation.IsCarry == false)
-            playerAnimation.Carry(true);
-
-        chicken.transform.SetParent(foodParent);
-    }
-
 }

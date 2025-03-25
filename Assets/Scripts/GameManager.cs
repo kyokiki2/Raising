@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public PlayerManager PlayerManager;
+    public CharacterManager CharacterManager;
     public ObjectPoolManager ObjectPoolManager;
     public ChickenSpawnManager ChickenSpawnManager;
     public DeliveryManManager DeliveryManManager;
     public DeliveryStationManager DeliveryStationManager;
+    public MoneyManager MoneyManager;
+    public UIManager UIManager;
 
     public static GameManager Instance = null;
 
@@ -41,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         dataAsset.Init();
         ObjectPoolManager.Init();
-        PlayerManager.Init();
+        CharacterManager.Init();
         ChickenSpawnManager.Init();
         DeliveryManManager.Init();
     }
@@ -49,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        PlayerManager.OnUpdate();
+        CharacterManager.OnUpdate();
         ChickenSpawnManager.OnUpdate();
         DeliveryManManager.OnUpdate();
     }

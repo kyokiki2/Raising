@@ -3,7 +3,6 @@ using DG.Tweening;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering;
 
 public class DeliveryMan : MonoBehaviour
 {
@@ -22,6 +21,9 @@ public class DeliveryMan : MonoBehaviour
     private Chicken chicken = null;
     private System.Action<DeliveryMan> onComplete = null;
 
+    public bool IsPickUpDone { get { return isPickUpDone; } set { isPickUpDone = value; } }
+    private bool isPickUpDone = false;
+
     public void Init()
     {
         if(onComplete == null)
@@ -35,7 +37,11 @@ public class DeliveryMan : MonoBehaviour
     {
         this.chicken = chicken;
         chicken.transform.SetParent(foodParent);
-        chicken.transform.DOLocalJump(Vector3.zero, 0.5f, 1, 0.2f).SetEase(Ease.OutQuad);
+        isPickUpDone = false;
+        chicken.transform.DOLocalJump(Vector3.zero, 1f, 1, 0.2f).SetEase(Ease.OutQuad).OnComplete(() =>
+        {
+            isPickUpDone = true;
+        });
     }
 
     public void DeliveryComplete()

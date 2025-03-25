@@ -1,35 +1,48 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using DG.Tweening;
 
-public class PlayerManager : MonoBehaviour
+
+public class CharacterBase : MonoBehaviour
 {
     [SerializeField]
-    private Player player;
+    protected CharAnimation charAnimation;
 
     [SerializeField]
-    private DynamicJoystick joyStick;
+    protected CharacterController controller;
+
+    [SerializeField]
+    protected Transform foodParent;
+
+    public CharAnimation Animation { get { return charAnimation; } }
+    public Transform FoodParent { get { return foodParent; } }
 
     private List<Chicken> myChickenList = new List<Chicken>();
     private const float INTERVAL = 0.25f;
     public int ChickenCount { get { return myChickenList.Count; } }
 
-    public Player Player { get { return player; } }
-
-    public void Init()
+    public virtual void Init()
     {
-        player.Init(joyStick);
+
     }
 
-    public void OnUpdate()
+    public virtual void OnUpdate()
     {
-        player.OnUpdate();
+
+    }
+
+    public void SetCarry(Chicken chicken)
+    {
+        if (charAnimation.IsCarry == false)
+            charAnimation.Carry(true);
+
+        chicken.transform.SetParent(foodParent);
     }
 
     public void SetChick(Chicken chicken)
     {
         myChickenList.Add(chicken);
-        Player.SetCarry(chicken);
+        SetCarry(chicken);
         Vector3 targetPos = GetNewChickenPos();
         chicken.transform.DOLocalJump(targetPos, 0.8f, 1, 0.2f).SetEase(Ease.OutQuad);
     }

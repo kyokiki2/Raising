@@ -18,3 +18,4 @@ MonoBehaviour:
     ChickenSpawner: Object/ChickenSpawner
     DeliveryMan: Delivery/DeliveryMan
     Chicken: Food/Chicken
+    Money: Object/Money

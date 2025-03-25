@@ -21,8 +21,8 @@ public class ChickenPickupTrigger : BaseTrigger
     {
         base.OnUpdate();
 
-        var playerMgr = GameManager.Instance.PlayerManager;
-        if (playerMgr.ChickenCount >= MAX_COUNT)
+        var playerMgr = GameManager.Instance.CharacterManager;
+        if (playerMgr.Player.ChickenCount >= MAX_COUNT)
             return;
 
         elapsedTime += Time.deltaTime;
@@ -31,7 +31,7 @@ public class ChickenPickupTrigger : BaseTrigger
         {
             var chicken = spawner.GetChicken();
             if (chicken != null)
-                playerMgr.SetChick(chicken);
+                playerMgr.Player.SetChick(chicken);
 
             elapsedTime = 0f;
         }

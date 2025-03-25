@@ -11,11 +11,13 @@ public class ObjectPoolManager : MonoBehaviour
 
     public TObjectPool<Chicken> ChickenPool { get; private set; }
     public TObjectPool<DeliveryMan> DeliveryManPool { get; private set; }
+    public TObjectPool<Money> MoneyPool { get; private set; }
 
     public void Init()
     {
         var resourceInfo = GameManager.Instance.Config.Resource;
         ChickenPool = new TObjectPool<Chicken>(resourceInfo.Chicken);
         DeliveryManPool = new TObjectPool<DeliveryMan>(resourceInfo.DeliveryMan);
+        MoneyPool = new TObjectPool<Money>(resourceInfo.Money);
     }
 }

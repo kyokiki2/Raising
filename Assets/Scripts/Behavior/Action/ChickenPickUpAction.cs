@@ -32,9 +32,14 @@ public partial class ChickenPickUpAction : Action
                 deliveryChicken = GameManager.Instance.DeliveryStationManager.GetChicken();
 
             if (deliveryChicken != null)
-                return Status.Success;
-            else
-                return Status.Running;
+            {
+                if(deliveryMan.Chicken == null)
+                    deliveryMan.SetChicken(deliveryChicken);
+
+                if (deliveryMan.IsPickUpDone)
+                    return Status.Success;
+
+            }
         }
 
         if (deliveryMan.IsIdleState())
@@ -45,10 +50,8 @@ public partial class ChickenPickUpAction : Action
 
     protected override void OnEnd()
     {
-        if (deliveryChicken != null)
-            deliveryMan.SetChicken(deliveryChicken);
-
         deliveryChicken = null;
+        deliveryMan.IsPickUpDone = false;
     }
 }
 

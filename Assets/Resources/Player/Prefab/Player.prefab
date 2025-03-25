@@ -1072,10 +1072,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f2fcc02a00cea4db7c47351bbc4667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnimation: {fileID: 5745705290197649104}
+  charAnimation: {fileID: 5745705290197649104}
   controller: {fileID: 4416926081852918491}
-  maxSpeed: 6
   foodParent: {fileID: 3320824405740777563}
+  joyStick: {fileID: 0}
+  maxSpeed: 6
 --- !u!114 &5745705290197649104
 MonoBehaviour:
   m_ObjectHideFlags: 0

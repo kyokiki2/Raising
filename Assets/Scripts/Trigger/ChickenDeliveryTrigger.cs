@@ -29,21 +29,21 @@ public class ChickenDeliveryTrigger : BaseTrigger
     {
         base.OnUpdate();
 
-        var playerMgr = GameManager.Instance.PlayerManager;
-        if (playerMgr.ChickenCount <= 0)
+        var playerMgr = GameManager.Instance.CharacterManager;
+        if (playerMgr.Player.ChickenCount <= 0)
             return;
 
         elapsedTime += Time.deltaTime;
 
         if (elapsedTime >= DURATION)
         {
-            var chicken = playerMgr.DropChicken();
+            var chicken = playerMgr.Player.DropChicken();
             if (chicken != null)
             {
                 SetChicken(chicken);
             }
 
-            if (playerMgr.ChickenCount <= 0)
+            if (playerMgr.Player.ChickenCount <= 0)
                 playerMgr.Player.Animation.Carry(false);
 
             elapsedTime = 0f;

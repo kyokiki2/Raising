@@ -62,6 +62,7 @@ public class ConfigEditor : Editor
         config.Resource.ChickenSpawner = EditorGUILayout.TextField("ChickenSpanwer", config.Resource.ChickenSpawner);
         config.Resource.DeliveryMan = EditorGUILayout.TextField("DeliveryMan", config.Resource.DeliveryMan);
         config.Resource.Chicken = EditorGUILayout.TextField("Chicken", config.Resource.Chicken);
+        config.Resource.Money = EditorGUILayout.TextField("Money", config.Resource.Money);
 
         EditorGUI.indentLevel--;
     }

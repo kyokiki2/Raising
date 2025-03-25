@@ -11,17 +11,17 @@ public class TObjectPool<T> where T : MonoBehaviour
     public TObjectPool(string resourcePath)
     {
         this.resourcePath = resourcePath;
-        pool = new ObjectPool<T>(Create, null, (x) => x.gameObject.SetActive(false), (x) => GameObject.Destroy(x));
+        pool = new ObjectPool<T>(Create, null, (x) => x.gameObject.SetActive(false), GameObject.Destroy);
     }
 
-    public T GetObject()
+    public T Get()
     {
         var compObject = pool.Get();
         compObject.gameObject.SetActive(false);
         return compObject;
     }
 
-    public void ReleaseObject(T compObject)
+    public void Release(T compObject)
     {
         compObject.transform.SetParent(Parent);
         pool.Release(compObject);
