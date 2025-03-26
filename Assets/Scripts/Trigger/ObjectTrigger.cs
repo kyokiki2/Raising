@@ -17,9 +17,9 @@ public class ObjectTrigger : BaseTrigger
     }
 
 
-    protected override void OnEnter()
+    protected override void OnEnter(CharacterBase character)
     {
-        base.OnEnter();
+        base.OnEnter(character);
 
         isGauageFull = false;
         elapsedTime = 0f;
@@ -38,9 +38,9 @@ public class ObjectTrigger : BaseTrigger
         }
     }
 
-    protected override void OnExit()
+    protected override void OnExit(CharacterBase character)
     {
-        base.OnExit();
+        base.OnExit(character);
 
         SetProgressBar(0f);
     }

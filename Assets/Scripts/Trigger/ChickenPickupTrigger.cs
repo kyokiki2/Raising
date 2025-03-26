@@ -8,29 +8,32 @@ public class ChickenPickupTrigger : BaseTrigger
     private float elapsedTime = 0f;
     private const float DURATION = 0.2f;
 
-    protected override void OnEnter()
+    protected override void OnEnter(CharacterBase character)
     {
-        base.OnEnter();
+        base.OnEnter(character);
 
         if(spawner == null)
             spawner = GetComponent<ChickenSpawner>();
     }
 
-
     protected override void OnUpdate()
     {
         base.OnUpdate();
 
-        if (character.ChickenCount >= MAX_COUNT)
-            return;
-
         elapsedTime += Time.deltaTime;
 
-        if(elapsedTime >= DURATION)
+        if (elapsedTime >= DURATION)
         {
-            var chicken = spawner.GetChicken();
-            if (chicken != null)
-                character.SetChick(chicken);
+            for (int i = 0; i < charList.Count; ++i)
+            {
+                var character = charList[i];
+                if (character.ChickenCount >= MAX_COUNT)
+                    continue;
+
+                var chicken = spawner.GetChicken();
+                if (chicken != null)
+                    character.SetChick(chicken);
+            }
 
             elapsedTime = 0f;
         }

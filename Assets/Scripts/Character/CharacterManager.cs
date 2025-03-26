@@ -19,7 +19,7 @@ public class CharacterManager : MonoBehaviour
             charList[i].Init();
     }
 
-    private void AddCharacter(CharacterBase character)
+    public void AddCharacter(CharacterBase character)
     {
         charList.Add(character);
     }

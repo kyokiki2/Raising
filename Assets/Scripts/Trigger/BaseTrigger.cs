@@ -1,33 +1,29 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseTrigger : MonoBehaviour
 {
-    protected CharacterBase character = null;
+    protected List<CharacterBase> charList = new();
     private Coroutine updateCoroutine = null;
 
     private void OnTriggerEnter(Collider other)
     {
-        character = other.GetComponent<CharacterBase>();
+        var character = other.GetComponent<CharacterBase>();
         if (character == null)
             return;
 
-        OnEnter();
+        OnEnter(character);
 
-        ClearUpdate();
-
-        updateCoroutine = StartCoroutine(DoUpdate());
     }
-
 
     private void OnTriggerExit(Collider other)
     {
+        var character = other.GetComponent<CharacterBase>();
         if (character == null)
             return;
 
-        ClearUpdate();
-
-        OnExit();
+        OnExit(character);
     }
 
     private IEnumerator DoUpdate()
@@ -39,7 +35,15 @@ public class BaseTrigger : MonoBehaviour
         }
     }
 
-    private void ClearUpdate()
+    private void StartUpdate()
+    {
+        if (updateCoroutine != null)
+            return;
+
+        updateCoroutine = StartCoroutine(DoUpdate());
+    }
+
+    private void EndUpdate()
     {
         if (updateCoroutine == null)
             return;
@@ -48,9 +52,12 @@ public class BaseTrigger : MonoBehaviour
         updateCoroutine = null;
     }
 
-    protected virtual void OnEnter()
+    protected virtual void OnEnter(CharacterBase character)
     {
+        charList.Add(character);
 
+        if (charList.Count > 0)
+            StartUpdate();
     }
 
     protected virtual void OnUpdate()
@@ -58,8 +65,11 @@ public class BaseTrigger : MonoBehaviour
 
     }
 
-    protected virtual void OnExit()
+    protected virtual void OnExit(CharacterBase character)
     {
+        charList.Remove(character);
 
+        if (charList.Count <= 0)
+            EndUpdate();
     }
 }

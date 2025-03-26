@@ -29,21 +29,25 @@ public class ChickenDeliveryTrigger : BaseTrigger
     {
         base.OnUpdate();
 
-        if (character.ChickenCount <= 0)
-            return;
-
         elapsedTime += Time.deltaTime;
 
         if (elapsedTime >= DURATION)
         {
-            var chicken = character.DropChicken();
-            if (chicken != null)
+            for (int i = 0; i < charList.Count; ++i)
             {
-                SetChicken(chicken);
-            }
+                var character = charList[i];
+                if (character.ChickenCount <= 0)
+                    continue;
 
-            if (character.ChickenCount <= 0)
-                character.Animation.Carry(false);
+                var chicken = character.DropChicken();
+                if (chicken != null)
+                {
+                    SetChicken(chicken);
+                }
+
+                if (character.ChickenCount <= 0)
+                    character.Animation.Carry(false);
+            }           
 
             elapsedTime = 0f;
         }

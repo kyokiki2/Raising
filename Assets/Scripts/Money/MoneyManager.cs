@@ -34,12 +34,10 @@ public class MoneyManager : MonoBehaviour
         return UP * calc;
     }
 
-    public void EarnMoney(Money money)
+    public void EarnMoney(Money money, Vector3 targetPos)
     {
-        var player = GameManager.Instance.CharacterManager.Player;
-        Vector3 target = player.FoodParent.position;
         var prevMoney = curMoney;
-        money.transform.DOJump(target, 2f, 1, 0.2f).SetEase(Ease.OutQuad).OnComplete(() =>
+        money.transform.DOJump(targetPos, 2f, 1, 0.2f).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             curMoney += Money.Value;
             RemoveMoney(money);
