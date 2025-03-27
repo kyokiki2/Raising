@@ -31,7 +31,7 @@ public partial class ChickenDeliveryAction : Action
             return Status.Success;
         }
 
-        if (deliveryMan.IsIdleState())
+        if (deliveryMan.IsIdleState)
             deliveryMan.SetDestination(target);
 
         return Status.Running;

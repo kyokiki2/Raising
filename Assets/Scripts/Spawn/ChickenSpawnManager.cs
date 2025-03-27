@@ -36,4 +36,10 @@ public class ChickenSpawnManager : MonoBehaviour
 
         spawnerList.Add(spawner);     
     }
+
+    public Vector3 GetRanSpawnerPos()
+    {
+        int ranIdx = UnityEngine.Random.Range(0, spawnerList.Count);
+        return spawnerList[ranIdx].CharTargetPos;
+    }
 }

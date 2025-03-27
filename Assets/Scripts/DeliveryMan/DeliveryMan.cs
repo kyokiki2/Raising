@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class DeliveryMan : MonoBehaviour
 {
     [SerializeField]
-    private NavMeshAgent agent;
+    private NavMeshAgent navMesh;
 
     [SerializeField]
     private BehaviorGraphAgent behavior;
@@ -23,6 +23,8 @@ public class DeliveryMan : MonoBehaviour
 
     public bool IsPickUpDone { get { return isPickUpDone; } set { isPickUpDone = value; } }
     private bool isPickUpDone = false;
+
+    public bool IsIdleState { get { return navMesh.IsIdleState(); } }
 
     public void Init()
     {
@@ -54,18 +56,7 @@ public class DeliveryMan : MonoBehaviour
 
     public void SetDestination(Vector3 target)
     {
-        agent.SetDestination(target);
-    }
-
-    public bool IsIdleState()
-    {
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
-        {
-            if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
-                return true;            
-        }
-
-        return false;
+        navMesh.SetDestination(target);
     }
 
     public void SetState(DELIVERY_STATE state)

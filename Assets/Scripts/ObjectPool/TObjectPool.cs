@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -12,6 +13,15 @@ public class TObjectPool<T> where T : MonoBehaviour
     {
         this.resourcePath = resourcePath;
         pool = new ObjectPool<T>(Create, null, (x) => x.gameObject.SetActive(false), GameObject.Destroy);
+    }
+
+    public void PreLoad(int count)
+    {
+        for (int i = 0; i < count; ++i)
+        {
+            var compObject = Create();
+            Release(compObject);
+        }
     }
 
     public T Get()

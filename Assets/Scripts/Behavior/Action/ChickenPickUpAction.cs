@@ -42,7 +42,7 @@ public partial class ChickenPickUpAction : Action
             }
         }
 
-        if (deliveryMan.IsIdleState())
+        if (deliveryMan.IsIdleState)
             deliveryMan.SetDestination(target);
 
         return Status.Running;

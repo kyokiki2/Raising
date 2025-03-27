@@ -8,4 +8,5 @@ public class ResourceConfig
     public string DeliveryMan;
     public string Chicken;
     public string Money;
+    public string CharacterAI;
 }

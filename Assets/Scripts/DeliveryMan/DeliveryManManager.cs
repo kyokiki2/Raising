@@ -16,7 +16,7 @@ public class DeliveryManManager : MonoBehaviour
 
     public void Init()
     {
-        //AddDeliveryMan();
+        GameManager.Instance.ObjectPoolManager.DeliveryManPool.PreLoad(5);
     }
 
     private void AddDeliveryMan()

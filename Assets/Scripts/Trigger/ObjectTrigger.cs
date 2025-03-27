@@ -47,7 +47,7 @@ public class ObjectTrigger : BaseTrigger
 
     protected virtual void OnSuccess()
     {
-        Debug.LogError("Success");
+        gameObject.SetActive(false);
     }
 
     private void UpdateGauage()

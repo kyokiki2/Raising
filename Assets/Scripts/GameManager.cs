@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public ChickenSpawnManager ChickenSpawnManager;
     public DeliveryManManager DeliveryManManager;
     public DeliveryStationManager DeliveryStationManager;
+    public PurchaseTriggerManager PurchaseTriggerManager;
     public MoneyManager MoneyManager;
     public UIManager UIManager;
 

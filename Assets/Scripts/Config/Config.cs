@@ -63,6 +63,7 @@ public class ConfigEditor : Editor
         config.Resource.DeliveryMan = EditorGUILayout.TextField("DeliveryMan", config.Resource.DeliveryMan);
         config.Resource.Chicken = EditorGUILayout.TextField("Chicken", config.Resource.Chicken);
         config.Resource.Money = EditorGUILayout.TextField("Money", config.Resource.Money);
+        config.Resource.CharacterAI = EditorGUILayout.TextField("CharacterAI", config.Resource.CharacterAI);
 
         EditorGUI.indentLevel--;
     }

@@ -19,6 +19,15 @@ public class CharacterManager : MonoBehaviour
             charList[i].Init();
     }
 
+    public CharacterAI CreateAIChar()
+    {
+        var resourcePath = GameManager.Instance.Config.Resource.CharacterAI;
+        var newChar = Utility.ResourcesLoad<CharacterAI>(resourcePath, transform);
+        AddCharacter(newChar);
+        return newChar;
+    }
+
+
     public void AddCharacter(CharacterBase character)
     {
         charList.Add(character);

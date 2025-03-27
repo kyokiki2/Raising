@@ -7,11 +7,16 @@ public class ChickenSpawner : MonoBehaviour
     [SerializeField]
     private Transform[] parents;
 
+    [SerializeField]
+    private Transform charTransform;
+
     private Chicken[] chickenSpawns = null;
     private float elapsedTime = 0f;
     private const float DURATION = 1f;
 
     private SpawnData data = null;
+
+    public Vector3 CharTargetPos { get { return charTransform.position; } }
 
     private ObjectPoolManager ObjectPoolManager
     {

@@ -7,6 +7,7 @@ public class DeliveryStationManager : MonoBehaviour
 
     public bool IsHaveChicken { get { return ChickenCount > 0; } }
     public int ChickenCount { get { return deliveryTrigger.Count; } }
+    public Vector3 CharTargetPos { get { return deliveryTrigger.CharTargetPos; } }
 
     public Chicken GetChicken()
     {

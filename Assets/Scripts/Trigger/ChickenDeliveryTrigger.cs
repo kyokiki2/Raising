@@ -9,6 +9,9 @@ public class ChickenDeliveryTrigger : BaseTrigger
     private Transform foodParent;
 
     [SerializeField]
+    private Transform charTransform;
+
+    [SerializeField]
     private Grid grid;
 
     private float elapsedTime = 0f;
@@ -16,6 +19,8 @@ public class ChickenDeliveryTrigger : BaseTrigger
 
     public int Count { get { return chickenList.Count; } }
     private List<Chicken> chickenList = new();
+
+    public Vector3 CharTargetPos { get { return charTransform.position; } }
 
     [Serializable]
     public class Grid

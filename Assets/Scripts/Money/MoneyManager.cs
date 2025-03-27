@@ -7,6 +7,7 @@ public class MoneyManager : MonoBehaviour
     [SerializeField]
     private Transform[] parents;
 
+    public bool IsEmpty { get { return moneyList.Count <= 0; } }
     private List<Money> moneyList = new(); 
 
     private const float UP = 0.15f;
@@ -23,6 +24,12 @@ public class MoneyManager : MonoBehaviour
     {
         int index = moneyList.Count % parents.Length;
         return parents[index];
+    }
+
+    public Vector3 GetMoneyRanPos()
+    {
+        int ranIdx = Random.Range(0, parents.Length);
+        return parents[ranIdx].transform.position;
     }
 
     public float GetHeight()
