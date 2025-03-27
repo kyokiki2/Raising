@@ -19,3 +19,4 @@ MonoBehaviour:
     DeliveryMan: Delivery/DeliveryMan
     Chicken: Food/Chicken
     Money: Object/Money
+    CharacterAI: Character/Prefab/CharacterAI

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d37967d721fd149af85eee72e1e0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 2501588125407981864}
+  navMesh: {fileID: 2501588125407981864}
   behavior: {fileID: 7676341411997268735}
   foodParent: {fileID: 6371536406075601744}
 --- !u!195 &2501588125407981864
