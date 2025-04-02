@@ -6,8 +6,8 @@ using Unity.Properties;
 using Unity.VisualScripting;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "ChickenDelivery", story: "[DeliveryMan] delivers chicken", category: "Action", id: "6db200b80ee84cae6bed3a5c16580d06")]
-public partial class ChickenDeliveryAction : Action
+[NodeDescription(name: "DeliveryManArrive", story: "[DeliveryMan] chicken arrives", category: "Action", id: "6db200b80ee84cae6bed3a5c16580d06")]
+public partial class DeliveryManArriveAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> DeliveryMan;
 

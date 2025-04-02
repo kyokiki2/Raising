@@ -5,8 +5,8 @@ using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "ChickenPickUp", story: "[DeliveryMan] pick up the chicken", category: "Action", id: "76369b1630438e055bbda0206ad3d9d9")]
-public partial class ChickenPickUpAction : Action
+[NodeDescription(name: "DeliveryManPickUp", story: "[DeliveryMan] pick up the chicken", category: "Action", id: "76369b1630438e055bbda0206ad3d9d9")]
+public partial class DeliveryManPickUpAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> DeliveryMan;
     private Vector3 target;
@@ -29,7 +29,7 @@ public partial class ChickenPickUpAction : Action
         if (Vector3.Distance(myPos, target) <= 0.3f)
         {
             if(deliveryChicken == null)
-                deliveryChicken = GameManager.Instance.DeliveryStationManager.GetChicken();
+                deliveryChicken = GameManager.Instance.ChickenDeliveryManager.GetChicken();
 
             if (deliveryChicken != null)
             {

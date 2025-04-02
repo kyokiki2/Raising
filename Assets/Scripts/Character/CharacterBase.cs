@@ -44,7 +44,8 @@ public class CharacterBase : MonoBehaviour
         myChickenList.Add(chicken);
         SetCarry(chicken);
         Vector3 targetPos = GetNewChickenPos();
-        chicken.transform.DOLocalJump(targetPos, 0.8f, 1, 0.2f).SetEase(Ease.OutQuad);
+        var config = GameManager.Instance.Config;
+        chicken.transform.DOLocalJump(targetPos, config.Effect.CharPickUp.Power, 1, config.Effect.CharPickUp.Duration).SetEase(Ease.OutQuad);
     }
 
     public Chicken DropChicken()

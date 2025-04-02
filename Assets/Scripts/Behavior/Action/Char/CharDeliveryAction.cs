@@ -15,7 +15,7 @@ public partial class CharDeliveryAction : Action
     protected override Status OnStart()
     {
         character = Character.Value.GetComponent<CharacterAI>();
-        target = GameManager.Instance.DeliveryStationManager.CharTargetPos;
+        target = GameManager.Instance.ChickenDeliveryManager.CharTargetPos;
         character.SetDestination(target);
         return Status.Running;
     }

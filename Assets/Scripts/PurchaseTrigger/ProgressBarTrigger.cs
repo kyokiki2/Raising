@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ObjectTrigger : BaseTrigger
+public class ProgressBarTrigger : BaseTrigger
 {
     [SerializeField]
     private MeshRenderer meshRenderer;

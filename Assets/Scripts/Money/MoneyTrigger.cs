@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class Money : BaseTrigger
+public class MoneyTrigger : BaseTrigger
 {
     public const int Value = 50;
 

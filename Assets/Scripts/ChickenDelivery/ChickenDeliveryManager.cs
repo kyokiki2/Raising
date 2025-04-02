@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DeliveryStationManager : MonoBehaviour
+public class ChickenDeliveryManager : MonoBehaviour
 {
     [SerializeField]
     private ChickenDeliveryTrigger deliveryTrigger;

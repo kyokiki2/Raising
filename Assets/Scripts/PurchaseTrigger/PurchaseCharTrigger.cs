@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PurchaseCharTrigger : ObjectTrigger
+public class PurchaseCharTrigger : ProgressBarTrigger
 {
     private const int PRICE = 500; 
     protected override void OnEnter(CharacterBase character)

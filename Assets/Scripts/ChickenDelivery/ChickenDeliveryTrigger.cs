@@ -63,7 +63,8 @@ public class ChickenDeliveryTrigger : BaseTrigger
         chickenList.Add(chicken);
         chicken.transform.SetParent(foodParent);
         Vector3 targetPos = GetNewChickenPos();
-        chicken.transform.DOLocalJump(targetPos, 0.5f, 1, 0.2f).SetEase(Ease.OutQuad);
+        var config = GameManager.Instance.Config;
+        chicken.transform.DOLocalJump(targetPos, config.Effect.DeliveryPickUp.Power, 1, config.Effect.DeliveryPickUp.Duration).SetEase(Ease.OutQuad);
     }
 
     private Vector3 GetNewChickenPos()

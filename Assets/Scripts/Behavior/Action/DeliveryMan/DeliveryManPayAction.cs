@@ -6,8 +6,8 @@ using Unity.Properties;
 using DG.Tweening;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "ChickenPay", story: "[Customer] pays for the chicken", category: "Action", id: "5646ad248e0bd77ada7a0e003c932a1e")]
-public partial class ChickenPayAction : Action
+[NodeDescription(name: "DeliveryManPay", story: "[Customer] pays for the chicken", category: "Action", id: "5646ad248e0bd77ada7a0e003c932a1e")]
+public partial class DeliveryManPayAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Customer;
     private DeliveryMan deliveryMan = null;
@@ -25,7 +25,8 @@ public partial class ChickenPayAction : Action
         money.transform.localEulerAngles = Vector3.zero;
         var height = GameManager.Instance.MoneyManager.GetHeight();
         Vector3 target = new Vector3(0f, height, 0f);
-        money.transform.DOLocalJump(target, 1f, 1, 0.2f).SetEase(Ease.OutQuad).OnComplete(() =>
+        var config = GameManager.Instance.Config;
+        money.transform.DOLocalJump(target, config.Effect.MoneyPickUp.Power, 1, config.Effect.MoneyPickUp.Duration).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             GameManager.Instance.MoneyManager.SetMoney(money);
             isDone = true;

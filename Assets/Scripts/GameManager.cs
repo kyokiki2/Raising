@@ -5,16 +5,16 @@ public class GameManager : MonoBehaviour
     public CharacterManager CharacterManager;
     public ObjectPoolManager ObjectPoolManager;
     public ChickenSpawnManager ChickenSpawnManager;
+    public ChickenDeliveryManager ChickenDeliveryManager;
     public DeliveryManManager DeliveryManManager;
-    public DeliveryStationManager DeliveryStationManager;
     public PurchaseTriggerManager PurchaseTriggerManager;
     public MoneyManager MoneyManager;
     public UIManager UIManager;
 
     public static GameManager Instance = null;
 
-    public Config Config { get { return config; } }
-    private Config config;
+    public GameConfig Config { get { return config; } }
+    private GameConfig config;
 
     public DataAsset DataAsset { get { return dataAsset; } }
     private DataAsset dataAsset;
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     private void Load()
     {
         if (config == null)
-            config = Config.Load();
+            config = GameConfig.Load();
 
         if (dataAsset == null)
             dataAsset = DataAsset.Load();

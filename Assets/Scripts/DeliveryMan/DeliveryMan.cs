@@ -40,7 +40,8 @@ public class DeliveryMan : MonoBehaviour
         this.chicken = chicken;
         chicken.transform.SetParent(foodParent);
         isPickUpDone = false;
-        chicken.transform.DOLocalJump(Vector3.zero, 1f, 1, 0.2f).SetEase(Ease.OutQuad).OnComplete(() =>
+        var config = GameManager.Instance.Config;
+        chicken.transform.DOLocalJump(Vector3.zero, config.Effect.DeliveryManPickUp.Power, 1, config.Effect.DeliveryManPickUp.Duration).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             isPickUpDone = true;
         });

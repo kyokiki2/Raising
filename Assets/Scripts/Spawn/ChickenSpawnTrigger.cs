@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ChickenPickupTrigger : BaseTrigger
+public class ChickenSpawnTrigger : BaseTrigger
 {
     private ChickenSpawner spawner = null;
 

@@ -12,7 +12,7 @@ public class DeliveryManManager : MonoBehaviour
     private const float DURATION = 1f;
     private const int MAX = 10;
 
-    private int ChickenCount { get { return GameManager.Instance.DeliveryStationManager.ChickenCount; } }
+    private int ChickenCount { get { return GameManager.Instance.ChickenDeliveryManager.ChickenCount; } }
 
     public void Init()
     {
