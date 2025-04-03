@@ -10,8 +10,6 @@ public class MoneyManager : MonoBehaviour
     public bool IsEmpty { get { return moneyList.Count <= 0; } }
     private List<MoneyTrigger> moneyList = new(); 
 
-    private const float UP = 0.15f;
-
     public long CurMoney { get { return curMoney; } }
     private long curMoney = 0;
 
@@ -38,13 +36,15 @@ public class MoneyManager : MonoBehaviour
             return 0f;
 
         float calc = (float)moneyList.Count / parents.Length;
-        return UP * calc;
+        return GameManager.Instance.EffectConfig.MoneyHeight * calc;
     }
 
     public void EarnMoney(MoneyTrigger money, Vector3 targetPos)
     {
         var prevMoney = curMoney;
-        money.transform.DOJump(targetPos, 2f, 1, 0.2f).SetEase(Ease.OutQuad).OnComplete(() =>
+        var power = GameManager.Instance.EffectConfig.MoneyGet.Power;
+        var duration = GameManager.Instance.EffectConfig.MoneyGet.Duration;
+        money.transform.DOJump(targetPos, power, 1, duration).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             curMoney += MoneyTrigger.Value;
             RemoveMoney(money);

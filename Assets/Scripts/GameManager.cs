@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public DataAsset DataAsset { get { return dataAsset; } }
     private DataAsset dataAsset;
 
+    public EffectConfig EffectConfig { get { return Config.Effect; } }
+
     private void Awake()
     {
         if (Instance == null)

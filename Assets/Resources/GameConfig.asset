@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802ee723cbab4a1419867ecdabccf577, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  SettingData:
-    StartSpawnId: 1000
+  Data:
+    SpawnId: 1000
+    CharPrice: 500
+    Player:
+      ChickenMax: 7
+    CharAI:
+      ChickenMax: 5
   Resource:
     ChickenSpawner: Object/ChickenSpawner
     DeliveryMan: Delivery/DeliveryMan
@@ -30,6 +35,13 @@ MonoBehaviour:
     DeliveryManPickUp:
       Power: 1
       Duration: 0.2
-    MoneyPickUp:
+    MoneyPay:
       Power: 1
       Duration: 0.2
+    MoneyGet:
+      Power: 2
+      Duration: 0.2
+    SpawnTime: 1
+    SpawnPickUp: 0.2
+    TakeTime: 0.2
+    MoneyHeight: 0.15

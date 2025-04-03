@@ -2,14 +2,13 @@ using UnityEngine;
 
 public class PurchaseCharTrigger : ProgressBarTrigger
 {
-    private const int PRICE = 500; 
     protected override void OnEnter(CharacterBase character)
     {
         bool isPlayer = character is Player;
         if (isPlayer == false)
             return;
 
-        if(GameManager.Instance.MoneyManager.CurMoney < PRICE)
+        if(GameManager.Instance.MoneyManager.CurMoney < GameManager.Instance.Config.Data.CharPrice)
             return;
 
         base.OnEnter(character);

@@ -12,7 +12,6 @@ public class ChickenSpawner : MonoBehaviour
 
     private Chicken[] chickenSpawns = null;
     private float elapsedTime = 0f;
-    private const float DURATION = 1f;
 
     private SpawnData data = null;
 
@@ -35,7 +34,7 @@ public class ChickenSpawner : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
 
-        if (elapsedTime > DURATION)
+        if (elapsedTime > GameManager.Instance.EffectConfig.SpawnTime)
         {
             var emptyIndex = GetEmptyIndex();
 

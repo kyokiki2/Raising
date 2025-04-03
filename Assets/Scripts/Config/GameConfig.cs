@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class GameConfig : ScriptableObject
 {
-    public SettingDataConfig SettingData;
+    public SettingDataConfig Data;
     public ResourceConfig Resource;
     public EffectConfig Effect;
     public static GameConfig Load()
@@ -26,7 +26,7 @@ public class GameConfigEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        if (IsOpenFolder(ref isStartData, "Start_SettingData"))
+        if (IsOpenFolder(ref isStartData, "StartData"))
             DrawStartData();
 
         if (IsOpenFolder(ref isResource, "Resource"))
@@ -55,7 +55,18 @@ public class GameConfigEditor : Editor
     {
         EditorGUI.indentLevel++;
 
-        config.SettingData.StartSpawnId = EditorGUILayout.IntField("StartSpawnId", config.SettingData.StartSpawnId);
+        config.Data.SpawnId = EditorGUILayout.IntField("SpawnId", config.Data.SpawnId);
+        config.Data.CharPrice = EditorGUILayout.IntField("CharPrice", config.Data.CharPrice);
+
+        EditorGUILayout.BeginVertical("GroupBox");
+        EditorGUILayout.LabelField("Character - Player");
+        config.Data.Player.ChickenMax = EditorGUILayout.IntField("Chicken Max", config.Data.Player.ChickenMax);
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical("GroupBox");
+        EditorGUILayout.LabelField("Character - AI");
+        config.Data.CharAI.ChickenMax = EditorGUILayout.IntField("Chicken Max", config.Data.CharAI.ChickenMax);
+        EditorGUILayout.EndVertical();
 
         EditorGUI.indentLevel--;
     }
@@ -96,10 +107,22 @@ public class GameConfigEditor : Editor
         EditorGUILayout.EndVertical();
 
         EditorGUILayout.BeginVertical("GroupBox");
-        EditorGUILayout.LabelField("Money - PickUp");
-        config.Effect.MoneyPickUp.Power = EditorGUILayout.FloatField("Power", config.Effect.MoneyPickUp.Power);
-        config.Effect.MoneyPickUp.Duration = EditorGUILayout.FloatField("Duration", config.Effect.MoneyPickUp.Duration);
+        EditorGUILayout.LabelField("Money - Pay");
+        config.Effect.MoneyPay.Power = EditorGUILayout.FloatField("Power", config.Effect.MoneyPay.Power);
+        config.Effect.MoneyPay.Duration = EditorGUILayout.FloatField("Duration", config.Effect.MoneyPay.Duration);
         EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical("GroupBox");
+        EditorGUILayout.LabelField("Money - Get");
+        config.Effect.MoneyGet.Power = EditorGUILayout.FloatField("Power", config.Effect.MoneyGet.Power);
+        config.Effect.MoneyGet.Duration = EditorGUILayout.FloatField("Duration", config.Effect.MoneyGet.Duration);
+        EditorGUILayout.EndVertical();
+
+
+        config.Effect.SpawnTime = EditorGUILayout.FloatField("SpawnTime", config.Effect.SpawnTime);
+        config.Effect.SpawnPickUp = EditorGUILayout.FloatField("SpawnPickUp", config.Effect.SpawnPickUp);
+        config.Effect.TakeTime = EditorGUILayout.FloatField("DeliveryZone Take", config.Effect.TakeTime);
+        config.Effect.MoneyHeight = EditorGUILayout.FloatField("MoneyHeight", config.Effect.MoneyHeight);
 
         EditorGUI.indentLevel--;
     }

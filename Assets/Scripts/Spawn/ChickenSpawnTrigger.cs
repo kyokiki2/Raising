@@ -4,9 +4,8 @@ public class ChickenSpawnTrigger : BaseTrigger
 {
     private ChickenSpawner spawner = null;
 
-    private const int MAX_COUNT = 7;
     private float elapsedTime = 0f;
-    private const float DURATION = 0.2f;
+    private int maxCount = 0;
 
     protected override void OnEnter(CharacterBase character)
     {
@@ -14,6 +13,11 @@ public class ChickenSpawnTrigger : BaseTrigger
 
         if(spawner == null)
             spawner = GetComponent<ChickenSpawner>();
+
+        if (character is Player)
+            maxCount = GameManager.Instance.Config.Data.Player.ChickenMax;
+        else if(character is CharacterAI)
+            maxCount = GameManager.Instance.Config.Data.CharAI.ChickenMax;
     }
 
     protected override void OnUpdate()
@@ -22,12 +26,12 @@ public class ChickenSpawnTrigger : BaseTrigger
 
         elapsedTime += Time.deltaTime;
 
-        if (elapsedTime >= DURATION)
+        if (elapsedTime >= GameManager.Instance.EffectConfig.SpawnPickUp)
         {
             for (int i = 0; i < charList.Count; ++i)
             {
                 var character = charList[i];
-                if (character.ChickenCount >= MAX_COUNT)
+                if (character.ChickenCount >= maxCount)
                     continue;
 
                 var chicken = spawner.GetChicken();
@@ -38,4 +42,6 @@ public class ChickenSpawnTrigger : BaseTrigger
             elapsedTime = 0f;
         }
     }
+
+
 }

@@ -26,7 +26,7 @@ public partial class DeliveryManPayAction : Action
         var height = GameManager.Instance.MoneyManager.GetHeight();
         Vector3 target = new Vector3(0f, height, 0f);
         var config = GameManager.Instance.Config;
-        money.transform.DOLocalJump(target, config.Effect.MoneyPickUp.Power, 1, config.Effect.MoneyPickUp.Duration).SetEase(Ease.OutQuad).OnComplete(() =>
+        money.transform.DOLocalJump(target, config.Effect.MoneyPay.Power, 1, config.Effect.MoneyPay.Duration).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             GameManager.Instance.MoneyManager.SetMoney(money);
             isDone = true;

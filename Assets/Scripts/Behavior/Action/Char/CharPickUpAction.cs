@@ -11,7 +11,6 @@ public partial class CharPickUpAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Character;
     private CharacterAI character = null;
     private Vector3 target = Vector3.zero;
-    private const int MAX_COUNT = 5;
 
     protected override Status OnStart()
     {
@@ -23,7 +22,7 @@ public partial class CharPickUpAction : Action
 
     protected override Status OnUpdate()
     {
-        if(character.ChickenCount > MAX_COUNT)
+        if(character.ChickenCount >= GameManager.Instance.Config.Data.CharAI.ChickenMax)
             return Status.Success;
 
         if (character.IsIdleState)

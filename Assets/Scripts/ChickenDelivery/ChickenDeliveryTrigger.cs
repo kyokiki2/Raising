@@ -15,7 +15,6 @@ public class ChickenDeliveryTrigger : BaseTrigger
     private Grid grid;
 
     private float elapsedTime = 0f;
-    private const float DURATION = 0.2f;
 
     public int Count { get { return chickenList.Count; } }
     private List<Chicken> chickenList = new();
@@ -36,7 +35,7 @@ public class ChickenDeliveryTrigger : BaseTrigger
 
         elapsedTime += Time.deltaTime;
 
-        if (elapsedTime >= DURATION)
+        if (elapsedTime >= GameManager.Instance.EffectConfig.TakeTime)
         {
             for (int i = 0; i < charList.Count; ++i)
             {

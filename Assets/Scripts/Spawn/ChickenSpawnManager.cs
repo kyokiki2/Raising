@@ -12,7 +12,7 @@ public class ChickenSpawnManager : MonoBehaviour
 
     public void Init()
     {
-        int spawnId = GameManager.Instance.Config.SettingData.StartSpawnId;
+        int spawnId = GameManager.Instance.Config.Data.SpawnId;
         var spawnData = GameManager.Instance.DataAsset.GetSpawnData(spawnId);
         CreateSpawner(spawnData);
     }
