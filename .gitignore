@@ -61,3 +61,4 @@ GPM/install.json
 Assets/GPM.meta
 *.snap
 *.utmp
+*.vsconfig
