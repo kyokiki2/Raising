@@ -39,23 +39,22 @@ public class MoneyManager : MonoBehaviour
         return GameManager.Instance.EffectConfig.MoneyHeight * calc;
     }
 
-    public void EarnMoney(MoneyTrigger money, Vector3 targetPos)
+    public void SetMoneyValue(int money)
     {
-        var prevMoney = curMoney;
-        var power = GameManager.Instance.EffectConfig.MoneyGet.Power;
-        var duration = GameManager.Instance.EffectConfig.MoneyGet.Duration;
-        money.transform.DOJump(targetPos, power, 1, duration).SetEase(Ease.OutQuad).OnComplete(() =>
-        {
-            curMoney += MoneyTrigger.Value;
-            RemoveMoney(money);
-            GameManager.Instance.UIManager.SetMoneyText(prevMoney, curMoney);
-        });
-
+        curMoney += money;
     }
 
     public void RemoveMoney(MoneyTrigger money)
     {
         GameManager.Instance.ObjectPoolManager.MoneyPool.Release(money);
         moneyList.Remove(money);
+    }
+
+    public void Buy(int price)
+    {
+        var prevMoney = curMoney;
+        curMoney -= price;
+
+        GameManager.Instance.UIManager.SetMoneyText(prevMoney, curMoney);
     }
 }

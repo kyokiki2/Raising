@@ -1,14 +1,22 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
-public class ProgressBarTrigger : BaseTrigger
+public class PurchaseTrigger : BaseTrigger
 {
     [SerializeField]
     private MeshRenderer meshRenderer;
 
+    [SerializeField]
+    protected TextMeshPro titleText;
+
+    [SerializeField]
+    private TextMeshPro priceText;
+
     private const float DURATION = 3f;
     private float elapsedTime = 0f;
     private bool isGauageFull = false;
+    protected int price = 0;
 
     private enum PROGRESS_BAR
     {
@@ -16,6 +24,22 @@ public class ProgressBarTrigger : BaseTrigger
         FRONT = 1
     }
 
+    public virtual void Init()
+    {
+        priceText.text = string.Format("{0}¿ø", price.ToString("N0"));
+    }
+
+    protected override bool IsEnter(CharacterBase character)
+    {
+        bool isPlayer = character is Player;
+        if (isPlayer == false)
+            return false;
+
+        if (GameManager.Instance.MoneyManager.CurMoney < price)
+            return false;
+
+        return true;
+    }
 
     protected override void OnEnter(CharacterBase character)
     {
@@ -47,6 +71,7 @@ public class ProgressBarTrigger : BaseTrigger
 
     protected virtual void OnSuccess()
     {
+        GameManager.Instance.MoneyManager.Buy(price);
         gameObject.SetActive(false);
     }
 

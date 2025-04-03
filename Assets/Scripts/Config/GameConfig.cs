@@ -22,7 +22,7 @@ public class GameConfigEditor : Editor
     private GameConfig config;
     private bool isStartData = false;
     private bool isResource = false;
-    private bool isEffectData = false;
+    private bool isEffect = false;
 
     public override void OnInspectorGUI()
     {
@@ -32,7 +32,7 @@ public class GameConfigEditor : Editor
         if (IsOpenFolder(ref isResource, "Resource"))
             DrawResource();
 
-        if (IsOpenFolder(ref isEffectData, "Effect"))
+        if (IsOpenFolder(ref isEffect, "Effect"))
             DrawEffect();
 
 
@@ -56,7 +56,14 @@ public class GameConfigEditor : Editor
         EditorGUI.indentLevel++;
 
         config.Data.SpawnId = EditorGUILayout.IntField("SpawnId", config.Data.SpawnId);
+        config.Data.MoneyValue = EditorGUILayout.IntField("MoneyValue", config.Data.MoneyValue);
         config.Data.CharPrice = EditorGUILayout.IntField("CharPrice", config.Data.CharPrice);
+
+        EditorGUILayout.BeginVertical("GroupBox");
+        EditorGUILayout.LabelField("Spawner - Price");
+        config.Data.SpawnerPrice.Id = EditorGUILayout.IntField("Id", config.Data.SpawnerPrice.Id);
+        config.Data.SpawnerPrice.Price = EditorGUILayout.IntField("Price", config.Data.SpawnerPrice.Price);
+        EditorGUILayout.EndVertical();
 
         EditorGUILayout.BeginVertical("GroupBox");
         EditorGUILayout.LabelField("Character - Player");

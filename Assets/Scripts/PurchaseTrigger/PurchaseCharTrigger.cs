@@ -1,17 +1,18 @@
 using UnityEngine;
 
-public class PurchaseCharTrigger : ProgressBarTrigger
+public class PurchaseCharTrigger : PurchaseTrigger
 {
-    protected override void OnEnter(CharacterBase character)
+    public override void Init()
     {
-        bool isPlayer = character is Player;
-        if (isPlayer == false)
-            return;
+        price = GameManager.Instance.Config.Data.CharPrice;
+        SetTitle();
 
-        if(GameManager.Instance.MoneyManager.CurMoney < GameManager.Instance.Config.Data.CharPrice)
-            return;
+        base.Init();
+    }
 
-        base.OnEnter(character);
+    private void SetTitle()
+    {
+        titleText.text = "°í¿ë";
     }
 
     protected override void OnSuccess()

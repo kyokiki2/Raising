@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
     SpawnId: 1000
-    CharPrice: 500
+    MoneyValue: 50
+    CharPrice: 200
+    SpawnerPrice:
+      Id: 1001
+      Price: 500
     Player:
       ChickenMax: 7
     CharAI:

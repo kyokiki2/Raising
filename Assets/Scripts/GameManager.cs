@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
         CharacterManager.Init();
         ChickenSpawnManager.Init();
         DeliveryManManager.Init();
+        PurchaseTriggerManager.Init();
     }
 
 

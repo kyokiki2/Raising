@@ -18,8 +18,8 @@ MonoBehaviour:
     Rotation: {x: 0, y: 180, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   - Id: 1001
-    Position: {x: -3, y: 0, z: 7}
-    Rotation: {x: 0, y: 180, z: 0}
+    Position: {x: -4, y: 0, z: 3}
+    Rotation: {x: 0, y: 90, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   - Id: 1002
     Position: {x: 3, y: 0, z: 7}

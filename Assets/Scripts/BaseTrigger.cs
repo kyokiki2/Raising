@@ -13,8 +13,10 @@ public class BaseTrigger : MonoBehaviour
         if (character == null)
             return;
 
-        OnEnter(character);
+        if (IsEnter(character) == false)
+            return;
 
+        OnEnter(character);
     }
 
     private void OnTriggerExit(Collider other)
@@ -25,6 +27,12 @@ public class BaseTrigger : MonoBehaviour
 
         OnExit(character);
     }
+
+    protected virtual bool IsEnter(CharacterBase character)
+    {
+        return true;
+    }
+
 
     private IEnumerator DoUpdate()
     {
