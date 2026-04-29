@@ -58,7 +58,8 @@ public class ChickenSpawner : MonoBehaviour
 
     private void CreateNewChicken(int index)
     {
-        var newChicken = ObjectPoolManager.ChickenPool.Get();
+        var resourceInfo = GameManager.Instance.Config.Resource;
+        var newChicken = GameManager.Instance.ObjectPoolManager.Get<Chicken>(resourceInfo.Chicken);
         chickenSpawns[index] = newChicken;
         chickenSpawns[index].transform.InitTransform(parents[index]);
         chickenSpawns[index].IsActive = true;

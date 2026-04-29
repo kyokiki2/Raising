@@ -17,7 +17,8 @@ public partial class DeliveryManPayAction : Action
     {
         isDone = false;
         deliveryMan = Customer.Value.GetComponent<DeliveryMan>();
-        var money = GameManager.Instance.ObjectPoolManager.MoneyPool.Get();
+        var resourceInfo = GameManager.Instance.Config.Resource;
+        var money = GameManager.Instance.ObjectPoolManager.Get<MoneyTrigger>(resourceInfo.Money);
         money.gameObject.SetActive(true);
         money.transform.InitTransform(deliveryMan.transform);
         var parent = GameManager.Instance.MoneyManager.GetParent();

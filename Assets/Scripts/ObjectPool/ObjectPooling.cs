@@ -1,17 +1,29 @@
-using System.Collections.Generic;
+using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class TObjectPool<T> where T : MonoBehaviour
+public interface IPool
 {
+    string ResourcePath { get; }
+    Type Type { get; }
+}
+
+public class ObjectPooling<T> : IPool where T : Component
+{
+    public string ResourcePath { get { return resourcePath; } }
+    public Type Type { get { return typeof(T); } }
+    public string FileName { get { return Path.GetFileName(resourcePath); } }
+
     private IObjectPool<T> pool = null;
     private string resourcePath = string.Empty;
+    private Transform parent = null;
 
-    private Transform Parent { get { return GameManager.Instance.ObjectPoolManager.Parent; } }
-
-    public TObjectPool(string resourcePath)
+    public ObjectPooling(string resourcePath, Transform parent = null)
     {
         this.resourcePath = resourcePath;
+        this.parent = parent;
+
         pool = new ObjectPool<T>(Create, null, (x) => x.gameObject.SetActive(false), GameObject.Destroy);
     }
 
@@ -27,13 +39,13 @@ public class TObjectPool<T> where T : MonoBehaviour
     public T Get()
     {
         var compObject = pool.Get();
-        compObject.gameObject.SetActive(false);
+        compObject.gameObject.SetActive(true);
         return compObject;
     }
 
     public void Release(T compObject)
     {
-        compObject.transform.SetParent(Parent);
+        compObject.transform.SetParent(parent);
         pool.Release(compObject);
     }
 
@@ -41,7 +53,8 @@ public class TObjectPool<T> where T : MonoBehaviour
     {
         var prefab = Resources.Load<GameObject>(resourcePath);
         var go = GameObject.Instantiate(prefab);
-        go.transform.InitTransform(Parent);
+        go.name = FileName;
+        go.transform.InitTransform(parent);
         return go.GetComponent<T>();
     }
 }

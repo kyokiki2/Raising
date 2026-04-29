@@ -16,13 +16,15 @@ public class DeliveryManManager : MonoBehaviour
 
     public void Init()
     {
-        GameManager.Instance.ObjectPoolManager.DeliveryManPool.PreLoad(5);
+        var resourceInfo = GameManager.Instance.Config.Resource;
+        GameManager.Instance.ObjectPoolManager.PreLoad<DeliveryMan>(resourceInfo.DeliveryMan, 5);
     }
 
     private void AddDeliveryMan()
     {
         var parent = wayPoints[(int)DELIVERY_STATE.WAIT];
-        var deliveryMan = GameManager.Instance.ObjectPoolManager.DeliveryManPool.Get();
+        var resourceInfo = GameManager.Instance.Config.Resource;
+        var deliveryMan = GameManager.Instance.ObjectPoolManager.Get<DeliveryMan>(resourceInfo.DeliveryMan);
         deliveryMan.Init();
         deliveryMan.transform.InitTransform(parent);
         deliveryMan.gameObject.SetActive(true);
@@ -33,8 +35,8 @@ public class DeliveryManManager : MonoBehaviour
     public void OnDeliveryComplete(DeliveryMan deliveryMan)
     {
         var objectPoolManager = GameManager.Instance.ObjectPoolManager;
-        objectPoolManager.ChickenPool.Release(deliveryMan.Chicken);
-        objectPoolManager.DeliveryManPool.Release(deliveryMan);
+        objectPoolManager.Release(deliveryMan);
+        objectPoolManager.Release(deliveryMan.Chicken);
         deliveryMan.Clear();
         Remove(deliveryMan);
     }

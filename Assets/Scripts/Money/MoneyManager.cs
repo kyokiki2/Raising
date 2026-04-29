@@ -46,7 +46,7 @@ public class MoneyManager : MonoBehaviour
 
     public void RemoveMoney(MoneyTrigger money)
     {
-        GameManager.Instance.ObjectPoolManager.MoneyPool.Release(money);
+        GameManager.Instance.ObjectPoolManager.Release(money);
         moneyList.Remove(money);
     }
 

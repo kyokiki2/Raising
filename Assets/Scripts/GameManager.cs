@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         dataAsset.Init();
-        ObjectPoolManager.Init();
         CharacterManager.Init();
         ChickenSpawnManager.Init();
         DeliveryManManager.Init();
