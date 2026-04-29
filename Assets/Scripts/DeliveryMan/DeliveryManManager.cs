@@ -27,8 +27,6 @@ public class DeliveryManManager : MonoBehaviour
         var deliveryMan = GameManager.Instance.ObjectPoolManager.Get<DeliveryMan>(resourceInfo.DeliveryMan);
         deliveryMan.Init();
         deliveryMan.transform.InitTransform(parent);
-        deliveryMan.gameObject.SetActive(true);
-        deliveryMan.name = deliveryManList.Count.ToString();
         deliveryManList.Add(deliveryMan);
     }
 
