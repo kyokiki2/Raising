@@ -6,14 +6,15 @@ using UnityEngine.Pool;
 public interface IPool
 {
     string ResourcePath { get; }
+    string FileName { get; }
     Type Type { get; }
 }
 
 public class ObjectPooling<T> : IPool where T : Component
 {
     public string ResourcePath { get { return resourcePath; } }
-    public Type Type { get { return typeof(T); } }
     public string FileName { get { return Path.GetFileName(resourcePath); } }
+    public Type Type { get { return typeof(T); } }
 
     private IObjectPool<T> pool = null;
     private string resourcePath = string.Empty;

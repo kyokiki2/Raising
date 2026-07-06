@@ -2,16 +2,40 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public CharacterManager CharacterManager;
-    public ObjectPoolManager ObjectPoolManager;
-    public ChickenSpawnManager ChickenSpawnManager;
-    public ChickenDeliveryManager ChickenDeliveryManager;
-    public DeliveryManManager DeliveryManManager;
-    public PurchaseTriggerManager PurchaseTriggerManager;
-    public MoneyManager MoneyManager;
-    public UIManager UIManager;
+    public static GameManager Instance { get; private set; }
 
-    public static GameManager Instance = null;
+    [SerializeField]
+    private CharacterManager characterManager;
+
+    [SerializeField]
+    private ObjectPoolManager objectPoolManager;
+
+    [SerializeField]
+    private ChickenSpawnManager chickenSpawnManager;
+
+    [SerializeField]
+    private ChickenDeliveryManager chickenDeliveryManager;
+
+    [SerializeField]
+    private DeliveryManManager deliveryManManager;
+
+    [SerializeField]
+    private PurchaseTriggerManager purchaseTriggerManager;
+
+    [SerializeField]
+    private MoneyManager moneyManager;
+
+    [SerializeField]
+    private UIManager uiManager;
+
+    public CharacterManager CharacterManager { get { return characterManager; } }
+    public ObjectPoolManager ObjectPoolManager { get { return objectPoolManager; } }
+    public ChickenSpawnManager ChickenSpawnManager { get { return chickenSpawnManager; } }
+    public ChickenDeliveryManager ChickenDeliveryManager { get { return chickenDeliveryManager; } }
+    public DeliveryManManager DeliveryManManager { get { return deliveryManManager; } }
+    public PurchaseTriggerManager PurchaseTriggerManager { get { return purchaseTriggerManager; } }
+    public MoneyManager MoneyManager { get { return moneyManager; } }
+    public UIManager UIManager { get { return uiManager; } }
 
     public GameConfig Config { get { return config; } }
     private GameConfig config;
@@ -23,8 +47,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
+        Instance = this;
     }
 
     private void Start()
@@ -45,20 +68,18 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         dataAsset.Init();
-        CharacterManager.Init();
-        ChickenSpawnManager.Init();
-        DeliveryManManager.Init();
-        PurchaseTriggerManager.Init();
+        characterManager.Init();
+        chickenSpawnManager.Init();
+        deliveryManManager.Init();
+        purchaseTriggerManager.Init();
     }
-
 
     private void LateUpdate()
     {
-        CharacterManager.OnUpdate();
-        ChickenSpawnManager.OnUpdate();
-        DeliveryManManager.OnUpdate();
+        characterManager.OnUpdate();
+        chickenSpawnManager.OnUpdate();
+        deliveryManManager.OnUpdate();
     }
-
 
     private void OnDestroy()
     {

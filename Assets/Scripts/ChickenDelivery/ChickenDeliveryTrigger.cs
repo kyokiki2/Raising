@@ -68,22 +68,10 @@ public class ChickenDeliveryTrigger : BaseTrigger
 
     private Vector3 GetNewChickenPos()
     {
-        Vector3 pos = Vector3.zero;
-        int columnMax = grid.Column;
-
-        for (int i = 0; i < chickenList.Count; ++i)
-        {
-            var chicken = chickenList[i];
-            if (chicken == null)
-                continue;
-
-            float posX = (i % columnMax) * grid.PosX;
-            int colCount = i / columnMax;
-            float posY = colCount * grid.PosY;
-            pos = new Vector3(posX, posY, 0f);
-        }
-
-        return pos;
+        int stackIndex = chickenList.Count - 1;
+        float posX = (stackIndex % grid.Column) * grid.PosX;
+        float posY = (stackIndex / grid.Column) * grid.PosY;
+        return new Vector3(posX, posY, 0f);
     }
 
     public Chicken GetChicken()
@@ -96,6 +84,4 @@ public class ChickenDeliveryTrigger : BaseTrigger
         chickenList.RemoveAt(lastIndex);
         return chicken;
     }
-
-
 }

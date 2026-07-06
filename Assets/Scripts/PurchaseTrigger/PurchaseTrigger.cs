@@ -14,8 +14,10 @@ public class PurchaseTrigger : BaseTrigger
     private TextMeshPro priceText;
 
     private const float DURATION = 3f;
+    private const string FILL_AMOUNT = "_FillAmount";
+
     private float elapsedTime = 0f;
-    private bool isGauageFull = false;
+    private bool isGaugeFull = false;
     protected int price = 0;
 
     private enum PROGRESS_BAR
@@ -26,7 +28,7 @@ public class PurchaseTrigger : BaseTrigger
 
     public virtual void Init()
     {
-        priceText.text = string.Format("{0}ø¯", price.ToString("N0"));
+        priceText.text = string.Format("{0}Ïõê", price.ToString("N0"));
     }
 
     protected override bool IsEnter(CharacterBase character)
@@ -45,7 +47,7 @@ public class PurchaseTrigger : BaseTrigger
     {
         base.OnEnter(character);
 
-        isGauageFull = false;
+        isGaugeFull = false;
         elapsedTime = 0f;
     }
 
@@ -53,11 +55,11 @@ public class PurchaseTrigger : BaseTrigger
     {
         base.OnUpdate();
 
-        if(isGauageFull == false)
+        if (isGaugeFull == false)
         {
-            UpdateGauage();
-            isGauageFull = GetProgressBar() == 1f;
-            if (isGauageFull)
+            UpdateGauge();
+            isGaugeFull = GetProgressBar() == 1f;
+            if (isGaugeFull)
                 OnSuccess();
         }
     }
@@ -75,7 +77,7 @@ public class PurchaseTrigger : BaseTrigger
         gameObject.SetActive(false);
     }
 
-    private void UpdateGauage()
+    private void UpdateGauge()
     {
         elapsedTime += Time.deltaTime;
         var lerpValue = Mathf.Lerp(0f, 1f, elapsedTime / DURATION);
@@ -84,12 +86,11 @@ public class PurchaseTrigger : BaseTrigger
 
     private void SetProgressBar(float value)
     {
-        meshRenderer.materials[(int)PROGRESS_BAR.FRONT].SetFloat("_FillAmount", value);
+        meshRenderer.materials[(int)PROGRESS_BAR.FRONT].SetFloat(FILL_AMOUNT, value);
     }
 
     private float GetProgressBar()
     {
-        return meshRenderer.materials[(int)PROGRESS_BAR.FRONT].GetFloat("_FillAmount");
+        return meshRenderer.materials[(int)PROGRESS_BAR.FRONT].GetFloat(FILL_AMOUNT);
     }
-
 }

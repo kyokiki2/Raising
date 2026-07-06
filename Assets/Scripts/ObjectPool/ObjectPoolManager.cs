@@ -10,13 +10,15 @@ public class ObjectPoolManager : MonoBehaviour
 
     private List<IPool> list = new();
 
-    private ObjectPooling<T> GetPooling<T>(string resourcePath) where T : Component
+    private ObjectPooling<T> GetPooling<T>(string key) where T : Component
     {
         for (int i = 0; i < list.Count; ++i)
         {
             var pool = list[i];
-            if (pool.ResourcePath.Contains(resourcePath) &&
-                pool.Type == typeof(T))
+            if (pool.Type != typeof(T))
+                continue;
+
+            if (pool.ResourcePath == key || pool.FileName == key)
                 return pool as ObjectPooling<T>;
         }
         return null;

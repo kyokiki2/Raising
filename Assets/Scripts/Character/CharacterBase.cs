@@ -61,18 +61,7 @@ public class CharacterBase : MonoBehaviour
 
     private Vector3 GetNewChickenPos()
     {
-        Vector3 pos = Vector3.one;
-        for (int i = 0; i < myChickenList.Count; ++i)
-        {
-            var chicken = myChickenList[i];
-            if (chicken == null)
-                continue;
-
-            var posY = i * INTERVAL;
-            pos = new Vector3(0f, posY, 0f);
-        }
-
-        return pos;
+        int stackIndex = myChickenList.Count - 1;
+        return new Vector3(0f, stackIndex * INTERVAL, 0f);
     }
-
 }
