@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -8,10 +9,17 @@ public class ObjectPoolManager : MonoBehaviour
     [SerializeField]
     private Transform parent;
 
-    private Dictionary<string, IPool> poolDic = new();
+    private readonly Dictionary<string, IPool> poolDic = new();
 
-    private ObjectPooling<T> GetPooling<T>(string key) where T : Component
+    private string GetKey<T>(string resourcePath) where T : Component
     {
+        return $"{typeof(T).FullName}_{Path.GetFileName(resourcePath)}";
+    }
+
+    private ObjectPooling<T> GetPooling<T>(string resourcePath) where T : Component
+    {
+        var key = GetKey<T>(resourcePath);
+
         if (poolDic.TryGetValue(key, out var pool))
         {
             return pool as ObjectPooling<T>;
@@ -21,13 +29,10 @@ public class ObjectPoolManager : MonoBehaviour
 
     private ObjectPooling<T> AddPooling<T>(string resourcePath) where T : Component
     {
-        var pool = new ObjectPooling<T>(resourcePath, parent);
-        poolDic[pool.ResourcePath] = pool;
+        var key = GetKey<T>(resourcePath);
 
-        if (!poolDic.ContainsKey(pool.FileName))
-        {
-            poolDic[pool.FileName] = pool;
-        }
+        var pool = new ObjectPooling<T>(resourcePath, parent);
+        poolDic.Add(key, pool);
 
         return pool;
     }
@@ -60,11 +65,13 @@ public class ObjectPoolManager : MonoBehaviour
     {
         var find = GetPooling<T>(obj.name);
         if (find == null)
+        {
+            Debug.LogWarning($"[ObjectPool] 풀을 못 찾음: {GetKey<T>(obj.name)} / 이름이 바뀌었거나 Get과 다른 타입으로 Release 중");
             return;
+        }
 
         find.Release(obj);
     }
-
     public void Release(GameObject obj)
     {
         Release(obj.transform);
