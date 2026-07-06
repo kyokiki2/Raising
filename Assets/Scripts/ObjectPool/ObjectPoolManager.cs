@@ -22,6 +22,13 @@ public class ObjectPoolManager : MonoBehaviour
 
         if (poolDic.TryGetValue(key, out var pool))
         {
+            if (pool.ResourcePath != resourcePath &&
+                pool.FileName != resourcePath)
+            {
+                Debug.LogError($"[ObjectPool] 파일명 충돌: {key} / 기존: {pool.ResourcePath}, 요청: {resourcePath}");
+                return null;
+            }
+
             return pool as ObjectPooling<T>;
         }
         return null;
@@ -66,7 +73,7 @@ public class ObjectPoolManager : MonoBehaviour
         var find = GetPooling<T>(obj.name);
         if (find == null)
         {
-            Debug.LogWarning($"[ObjectPool] 풀을 못 찾음: {GetKey<T>(obj.name)} / 이름이 바뀌었거나 Get과 다른 타입으로 Release 중");
+            Debug.LogWarning($"[ObjectPool] 풀을 못 찾음: {GetKey<T>(obj.name)}");
             return;
         }
 
