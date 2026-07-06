@@ -8,18 +8,13 @@ public class ObjectPoolManager : MonoBehaviour
     [SerializeField]
     private Transform parent;
 
-    private List<IPool> list = new();
+    private Dictionary<string, IPool> poolDic = new();
 
     private ObjectPooling<T> GetPooling<T>(string key) where T : Component
     {
-        for (int i = 0; i < list.Count; ++i)
+        if (poolDic.TryGetValue(key, out var pool))
         {
-            var pool = list[i];
-            if (pool.Type != typeof(T))
-                continue;
-
-            if (pool.ResourcePath == key || pool.FileName == key)
-                return pool as ObjectPooling<T>;
+            return pool as ObjectPooling<T>;
         }
         return null;
     }
@@ -27,7 +22,13 @@ public class ObjectPoolManager : MonoBehaviour
     private ObjectPooling<T> AddPooling<T>(string resourcePath) where T : Component
     {
         var pool = new ObjectPooling<T>(resourcePath, parent);
-        list.Add(pool);
+        poolDic[pool.ResourcePath] = pool;
+
+        if (!poolDic.ContainsKey(pool.FileName))
+        {
+            poolDic[pool.FileName] = pool;
+        }
+
         return pool;
     }
 
