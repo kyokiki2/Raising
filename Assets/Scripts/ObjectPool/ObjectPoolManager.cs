@@ -25,8 +25,7 @@ public class ObjectPoolManager : MonoBehaviour
             if (pool.ResourcePath != resourcePath &&
                 pool.FileName != resourcePath)
             {
-                Debug.LogError($"[ObjectPool] 파일명 충돌: {key} / 기존: {pool.ResourcePath}, 요청: {resourcePath}");
-                return null;
+                throw new InvalidOperationException($"[ObjectPool] 파일명 충돌: {key} / 기존: {pool.ResourcePath}, 요청: {resourcePath}");
             }
 
             return pool as ObjectPooling<T>;
